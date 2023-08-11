@@ -1,20 +1,20 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone"
+import express, { json } from "express"
 import connectWithDB from "./Database/db.config";
-import { typeDefs } from "./Graphql/Schema";
-import { resolvers } from "./Graphql/Resolver";
+import taskRouter from "./routes/task.routes";
+import userRouter from "./routes/user.routes";
+import cors from "cors";
+const app = express();
 
 connectWithDB();
 
-const graphqlServer = new ApolloServer({
-    typeDefs,
-    resolvers
+app.use(cors())
+app.use(json())
+
+app.get("/",()=>{
+    console.log("hi")
 })
 
-startStandaloneServer(graphqlServer, {
-    listen: { port: 3000 }
-}).then((res) =>
-    console.log(`Server is Running on : ${res.url}`)
-).catch(err =>
-    console.log(err)
-)
+app.use("/api/user",userRouter)
+app.use("/api/task",taskRouter)
+
+app.listen(4000);
