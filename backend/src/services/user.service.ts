@@ -5,9 +5,26 @@ import { config } from "dotenv";
 import { resolve } from "path"
 import { hash, compare, genSalt } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import decodeUser from "../helper/DecodeUser";
 config({ path: resolve("./src/.env") })
 
 class UserService {
+
+    getAUserData = async (token: any) => {
+        try {
+            const userId = decodeUser(token);
+            const userDetails = await User.findOne({ _id: userId },{password:0});
+            const dataToSend = {
+                code: StatusCode.SUCCESS,
+                userId,
+                ...userDetails
+            }
+            return AES.encrypt(JSON.stringify(dataToSend), process.env.CRYPTO_KEY as string).toString();
+        } catch (error) {
+            console.log("User Service Error : ", error);
+        }
+    }
+
     registerUser = async (encryptedNewUserString: string) => {
         try {
             const decryptedNewUserString = AES.decrypt(encryptedNewUserString, process.env.CRYPTO_KEY as string).toString(enc.Utf8);

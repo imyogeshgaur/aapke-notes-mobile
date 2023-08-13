@@ -1,32 +1,41 @@
 import { Request, Response, Router } from "express";
 import UserController from "../Controller/user.controller";
+import decodeUser from "../helper/DecodeUser";
 const userRouter = Router();
 
-
-userRouter.post("/registerAUser",async(req:Request,res:Response)=>{
+userRouter.get("/getUserFromToken/:token", async (req: Request, res: Response) => {
     try {
-        const taskController = new UserController(req, res)
-        await taskController.registerAUser();
+        const userController = new UserController(req, res)
+        await userController.getAUserData();
     } catch (error) {
-        console.log("User Global Error : ",error);
+        console.log("User Global Error : ", error);
     }
 })
 
-userRouter.post("/loginAUser",async(req:Request,res:Response)=>{
+userRouter.post("/registerAUser", async (req: Request, res: Response) => {
     try {
-        const taskController = new UserController(req, res)
-        await taskController.loginAUser();
+        const userController = new UserController(req, res)
+        await userController.registerAUser();
     } catch (error) {
-        console.log("User Global Error : ",error);
+        console.log("User Global Error : ", error);
     }
 })
 
-userRouter.put("/updateAUser",async(req:Request,res:Response)=>{
+userRouter.post("/loginAUser", async (req: Request, res: Response) => {
     try {
-        const taskController = new UserController(req, res)
-        await taskController.updateAUser();
+        const userController = new UserController(req, res)
+        await userController.loginAUser();
     } catch (error) {
-        console.log("User Global Error : ",error);
+        console.log("User Global Error : ", error);
+    }
+})
+
+userRouter.put("/updateAUser", async (req: Request, res: Response) => {
+    try {
+        const userController = new UserController(req, res)
+        await userController.updateAUser();
+    } catch (error) {
+        console.log("User Global Error : ", error);
     }
 })
 

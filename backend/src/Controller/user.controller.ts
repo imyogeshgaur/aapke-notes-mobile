@@ -12,6 +12,17 @@ class UserController {
         this.service = new UserService();
     }
 
+    getAUserData = async () => {
+        try {
+            const data = this.req.params.token;
+            const responseString = await this.service.getAUserData(data);
+            return this.res.send({ responseString })
+        } catch (error) {
+            console.log("User Controller Error : ", error);
+            return this.res.status(StatusCode.SERVER_ERROR).send({ message: "Internal Server Error !!!" })
+        }
+    }
+
     registerAUser = async () => {
         try {
             const data = this.req.body.encryptedData;

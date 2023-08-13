@@ -32,7 +32,6 @@ class TaskService {
     registerTask = async (encryptedNewTaskString: string) => {
         try {
             const decryptTaskString = AES.decrypt(encryptedNewTaskString, process.env.CRYPTO_KEY as string).toString(enc.Utf8);
-
             const newTask = JSON.parse(decryptTaskString);
             const title = newTask.title;
 
@@ -44,7 +43,6 @@ class TaskService {
             const createdTask = new Task({
                 ...newTask
             });
-
             const taskToSave = await createdTask.save();
             if (taskToSave) return AES.encrypt(
                 JSON.stringify({ code: StatusCode.SUCCESS, message: "New Task Added !!!" }), process.env.CRYPTO_KEY as string

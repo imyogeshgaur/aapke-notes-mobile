@@ -14,7 +14,7 @@ class TaskController {
 
     getAllTask = async () => {
         try {
-            const data = this.req.body;
+            const data = this.req.body.encryptedData;
             const responseString = await this.service.getAllTasks(data);
             return this.res.send(responseString)
         } catch (error) {
@@ -25,7 +25,7 @@ class TaskController {
 
     registerATask = async () => {
         try {
-            const data = this.req.body;
+            const data = this.req.body.encryptedData;
             const responseString = await this.service.registerTask(data);
             return this.res.send(responseString)
         } catch (error) {
@@ -36,7 +36,7 @@ class TaskController {
 
     updateATask = async () => {
         try {
-            const data = this.req.body;
+            const data = this.req.body.encryptedData;
             const responseString = await this.service.updateTask(data);
             return this.res.send(responseString)
         } catch (error) {
@@ -47,7 +47,7 @@ class TaskController {
 
     deleteATask = async() => {
         try {
-            const data = this.req.body;
+            const data = this.req.body.encryptedData;
             const responseString = await this.service.deleteTask(data);
             return this.res.send(responseString)
         } catch (error) {
