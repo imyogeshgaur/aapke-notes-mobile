@@ -1,7 +1,7 @@
-import CustomInput from "../Components/CustomInput"
+import CustomInput from "../Components/Auth/CustomInput"
 import { emailValidation, passwordValidation, requiredValidation } from "../validation/Validation"
 
-const propsArray:any = [
+const propsArray:Array<any> = [
     {
         name: "email",
         placeholder:"Enter Your Email",

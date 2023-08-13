@@ -1,10 +1,9 @@
 import {View, StyleSheet} from 'react-native';
 import {Field, reduxForm} from 'redux-form';
-import {useSelector} from 'react-redux';
 import React from 'react';
 import propsArray from '../../Data/SignUpData';
-import CustomButton from '../../Components/CustomButton';
-import CustomLink from '../../Components/CustomLink';
+import CustomButton from '../../Components/Auth/CustomButton';
+import CustomLink from '../../Components/Auth/CustomLink';
 
 let SignUpScreen: any = () => {
   return (

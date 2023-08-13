@@ -1,12 +1,35 @@
 import {View, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Field, reduxForm} from 'redux-form';
-import {useSelector} from 'react-redux';
 import propsArray from '../../Data/LoginData';
-import CustomButton from '../../Components/CustomButton';
-import CustomLink from '../../Components/CustomLink';
+import CustomButton from '../../Components/Auth/CustomButton';
+import CustomLink from '../../Components/Auth/CustomLink';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { addUserToStore } from '../../Redux/slice/UserSlice';
+import getUserDetailsAPI from '../../api/UserData';
 
 let LoginScreen: any = () => {
+  const dispatch = useDispatch();
+  const navigator: any = useNavigation();
+
+  // AsyncStorage.getItem('token')
+  //   .then(token => {
+  //     getUserDetailsAPI(token).then(user=>{
+  //       const myUser = user._doc
+  //       dispatch(addUserToStore({
+  //         userId: myUser._id,
+  //         userName: myUser.userName,
+  //         role: myUser.role,
+  //         email: myUser.email,
+  //       }))
+  //     })
+  //   })
+  //   .catch(err => console.log(err));
+
+  AsyncStorage.getItem("token").then(res=>res ? navigator.navigate("Home") :"").catch(err=>console.log(err))
+
   return (
     <View style={styles.container}>
       {propsArray.map((val: any, index: any) => (
@@ -38,11 +61,11 @@ let LoginScreen: any = () => {
     </View>
   );
 };
-const createSignUpForm = reduxForm({
+const createLoginForm = reduxForm({
   form: 'loginForm',
 });
 
-LoginScreen = createSignUpForm(LoginScreen);
+LoginScreen = createLoginForm(LoginScreen);
 
 export default LoginScreen;
 

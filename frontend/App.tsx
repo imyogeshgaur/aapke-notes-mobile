@@ -1,12 +1,15 @@
-import React from 'react';
-import {Provider} from 'react-redux';
-import store from './src/Redux/Store';
-import AppRoutes from './src/Routes/AppRoutes';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from './src/Redux/Store'
+import AppRoutes from './src/Routes/AppRoutes'
+
 const App = () => {
   return (
     <Provider store={store}>
-      <AppRoutes />
+      <AppRoutes/>
     </Provider>
-  );
-};
-export default App;
+  )
+}
+
+export default App
